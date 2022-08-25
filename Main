@@ -2,42 +2,91 @@
 #include <stdlib.h>
 #include <math.h>
 
+//EEE2045 Lab 2, Decimal to radix i converter
+//Alex Massyn, MSSALE009
+//Lab partner - Uri Naidoo, NDXURI001
+
 int main() {
+
 
     printf("*****************************\n");
     printf("DECIMAL TO RADIX-i converter\n");
-    printf("Written by: MSSALE009\n");
+    printf("Written by: MSSALE009 and NDXURI001\n");
     printf("Date: 2022\n");
     printf("*****************************\n");
 
-    while (1){
-        int Num1;
-        int Num2;
+    while (1) {
+        int D;
+        int R;
         printf("Enter a decimal number: ");
-        scanf("%d",&Num1);
-        if (Num1<0.00) {
+        scanf("%d",&D);
+        if (D<0.00) {
+                printf("EXIT");
                 break;
         }
+        else if (D==0) {
+            printf("The number you have entered is 0 \n");
+            printf("Enter a radix for the converter between 2 and 16: ");
+            scanf("%d", &R);
+            printf("The radix you have entered is %d \n",R);
+            double Num1 = D;
+            printf("The log2 of the number is undefined\n");
+            printf("The integer result of the number divided by %d is 0\n",R);
+            printf("The remainder is 0\n");
+            printf("The radix-%d value is 0\n", R);
+        }
         else {
-        printf("The number you have entered is %d \n",Num1);
+            printf("The number you have entered is %d \n",D);
 
-        printf("Enter a radix for the converter between 2 and 16: ");
-        scanf("%d", &Num2);
-        printf("The radix you have entered iss %d \n",Num2);
-        double Num3 = Num1;
-        printf("The log2 of the number is %.2lf\n", log2(Num3));
-        int Num4=Num1/Num2;
-        printf("The integer result of the number divided by 2 is %d\n", Num4);
+            printf("Enter a radix for the converter between 2 and 16: ");
+            scanf("%d", &R);
+            printf("The radix you have entered is %d \n",R);
+            double Num1 = D;
+            printf("The log2 of the number is %.2lf\n", log2(Num1));
+            int Num2=D/R;
+            printf("The integer result of the number divided by %d is %d\n",R, Num2);
+            printf("The remainder is %d\n", D%R);
+            printf("The radix-%d value is ", R);
+            printf("\n", Dec2RadixI(D, R));
         }
     }
 
  return 0;
 }
-void Dec2RadixI(int decValue, int radValue) {
 
- int x;
+void Dec2RadixI(int d, int r) {
 
+    int n = ceil(log(d+1)/log(r))-1;
 
- printf("The radix-%d value is %d", radValue, x)
+    int q, ri;
 
+    for(int i=n; i>=0; i--) {
+
+        ri = pow(r, i);
+        q = trunc(d/ri);
+        if (q <= 9) { printf("%d", q); }
+        else { printf("%c", q+55); }
+        d = d-(q*ri);
+
+    }
 }
+
+
+
+void Dec2RadixI(int d, int r) {
+
+    int n = ceil(log(d+1)/log(r))-1;
+
+    int q, ri;
+
+    for(int i=n; i>=0; i--) {
+
+        ri = pow(r, i);
+        q = trunc(d/ri);
+        if (q <= 9) { printf("%d", q); }
+        else { printf("%c", q+55); }
+        d = d-(q*ri);
+
+    }
+}
+
