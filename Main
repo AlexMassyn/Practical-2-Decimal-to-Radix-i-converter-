@@ -6,15 +6,11 @@
 #define AUTHOR "NDXURI001 & MSSALE009"
 #define YEAR "2022"
 
-//Lab partners: Alex Massyn & Uri Naidoo 
+void Dec2RadixI(int d, int r) {  //function to convert decimal
 
-
-void Dec2RadixI(int d, int r) {  //function to convert decimal to radix-i
-
-    int n = trunc(ceil(log(d+1)/log(r)))-1; //find the number of bits needed to make the radix-i value
-    
+    int n = ceil(log(d+1)/log(r))-1; //find the number of bits needed to make the radix-i value
     int q, ri;
-    
+    printf("\nThe radix-%d value is ",r);
     for (int i=n; i>=0; i--) {  //for loop to find each bit value
         ri = trunc(pow(r, i)); //find radix to the power i
         q = trunc(d/ri); //bit value at position i
@@ -24,7 +20,6 @@ void Dec2RadixI(int d, int r) {  //function to convert decimal to radix-i
     }
 }
 
-
 int main() {
 
     printf("*****************************\n");
@@ -33,23 +28,20 @@ int main() {
     printf("Date: %s\n",YEAR);
     printf("*****************************\n");
 
-    while (1){  // infinite loop since it is always true
-        
-        int D, R;
-        
+    while (1){  //loop to run unless exited by user
+        int D;
+        int R;
         printf("Enter a decimal number: ");
         scanf("%d",&D);
-        
-        if (D<0) { // if decimal value less than 0, break out the loop and end
+        if (D<0) { // if decimal value less than 0, exit loop and code
                 printf("EXIT");
                 break;
         }
-        
         else if (D==0) { // if decimal value is 0 run this code
             printf("The number you have entered is %d \n",D);
             printf("Enter a radix for the converter between 2 and 16: ");
             scanf("%d", &R);
-            while (R<2 || R>16) { //User has to input a number between 2 and 16
+            while (R<2 || R>16) {
                 printf("Enter a radix for the converter between 2 and 16: ");
                 scanf("%d", &R);
             }
@@ -57,14 +49,14 @@ int main() {
             int Num2=D/R;
             printf("The integer result of the number divided by %d is %d\n",R, Num2);
             printf("The remainder is %d\n", D%R);
-            printf("The radix-%d value is 0\n",R); //radix-i of i is zero for all i values 
+            printf("The radix-%d value is 0\n",R); //return new radix-i value
 
         }
         else { // if decimal is a positive integer run this code
             printf("The number you have entered is %d \n",D);
             printf("Enter a radix for the converter between 2 and 16: ");
             scanf("%d", &R);
-            while (R<2 || R>16) { //User has to input a number between 2 and 16
+            while (R<2 || R>16) {
                 printf("Enter a radix for the converter between 2 and 16: ");
                 scanf("%d", &R);
             }
@@ -73,10 +65,9 @@ int main() {
             printf("The log2 of the number is %.2lf\n", log2(Num1));
             int Num2=D/R;
             printf("The integer result of the number divided by %d is %d\n",R, Num2);
-            printf("The remainder is %d\n", D%R);
-            printf("The radix-%d value is ", R);
-            printf("\n", Dec2RadixI(D, R)); //return new radix-i value
-
+            printf("The remainder is %d", D%R);
+            Dec2RadixI(D, R); //return new radix-i value
+            printf("\n");
         }
     }
 
